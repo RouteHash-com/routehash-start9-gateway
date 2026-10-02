@@ -11,7 +11,7 @@ release-notes: |
   - Customer DATUM gateway; package id routehash-gateway (does not replace datum)
   - Prefills pool.routehash.com:28915, prefer, Pool Pass User On, Workers Off
   - Build iohzrd/datum_gateway at 7491a5099dd5d887a027c812f71de63e0d5986a3
-  - Icon is a bolt-in-ring mark
+  - Icon is the RouteHash mark
   - RouteHash does not POST this gateway
 license: MIT
 wrapper-repo: "https://github.com/RouteHash-com/routehash-start9-gateway"
