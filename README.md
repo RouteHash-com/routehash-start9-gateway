@@ -1,8 +1,22 @@
-# RouteHash Gateway (StartOS)
+# RouteHash Datum Gateway (StartOS)
 
-Customer DATUM gateway for people who **already run Knots** on StartOS. It is an overlay of [iohzrd/datum_gateway](https://github.com/iohzrd/datum_gateway) pin `7491a5099dd5d887a027c812f71de63e0d5986a3`, wrapped for StartOS 0.4, prefilled to join RouteHash RATUM as a **segment**.
+RouteHash Datum Gateway is for a person who already runs Bitcoin Knots on StartOS and wants their own ASICs to mine through DATUM, with the pool pointed at RouteHash.
 
-Package id is `routehash-gateway`. Title **RouteHash Gateway**. It is not Start9’s official Ocean Datum package (id `datum`) and it is not RATUM Prime.
+This StartOS download is the 64-bit package for an AMD or Intel server. A Raspberry Pi running StartOS does not have a gateway package in this release. A Raspberry Pi running Umbrel installs the same app from the RouteHash store, which has an amd64 and an arm64 image: [github.com/RouteHash-com/umbrel-store](https://github.com/RouteHash-com/umbrel-store).
+
+## Why this DATUM
+
+DATUM sits between the ASICs and the Knots node on this server. The node builds the block. The ASIC asks this gateway for work. This gateway joins RouteHash at `pool.routehash.com:28915`, so a block this node finds can be shared with that pool.
+
+Ocean's DATUM package uses id `datum` and its own miner port. The Blake2b and SHA-256 companions use other miner ports. This package uses id `routehash-gateway` and miner port **23339** on Umbrel, and the port StartOS assigns on StartOS, so it can be installed beside a DATUM that is already there. Pool Host, the RouteHash pubkey, collaborative reward sharing set to prefer, Pool Pass User on, and Pool Pass Workers off are filled in for RouteHash. Never put 28915 on an ASIC.
+
+## Who it is for
+
+Use this package when the ASICs are yours and the Knots node is yours.
+
+A hash-only miner that does not run a node leaves the firmware on `stratum.routehash.com:23335` and skips this package. A person who already runs one DATUM pastes Pool Host `pool.routehash.com`, port `28915`, and the pubkey from [pool/connect](https://app.routehash.com/pool/connect) into that gateway. One DATUM on the machine is the setup. Two gateways means two miner ports. An operator who wants the pool left blank clears Pool Host after install.
+
+It is an overlay of [iohzrd/datum_gateway](https://github.com/iohzrd/datum_gateway) pin `7491a5099dd5d887a027c812f71de63e0d5986a3`, wrapped for StartOS 0.4, prefilled to join RouteHash as a segment. Package id is `routehash-gateway`. It is a separate service from Ocean's Datum package and from RATUM Prime.
 
 Sideload: [app.routehash.com/pool/connect](https://app.routehash.com/pool/connect). Source: this tree. In the RouteHash workspace the same files live at `packaging/routehash-gateway-startos`.
 
@@ -25,7 +39,7 @@ If StartOS said **Updated** on Datum when you installed a file, that file’s pa
 ## What we changed vs upstream iohzrd
 
 - StartOS package id `routehash-gateway` (so it can install beside an existing `datum` without wiping it). That is StartOS safety, not permission to run two gateways.
-- Title **RouteHash Gateway**.
+- Title **RouteHash Datum Gateway**.
 - Coordinator prefill (`startos/coordinator.ts`): host, port, pubkey, prefer, Pass User On, Workers Off.
 - Empty split table on install. RouteHash’s marketplace does not POST this gateway.
 - Icon is a bolt-in-ring mark (no letter badges).
